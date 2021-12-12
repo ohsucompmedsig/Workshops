@@ -1,1 +1,7 @@
+# R things
+
+# Macs being Macs
 *.DS_Store*
+
+# large data files
+countycovidData.csv

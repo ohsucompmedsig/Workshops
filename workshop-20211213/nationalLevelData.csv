@@ -1,52 +1,51 @@
-"","region","TotalCases","logTotalCases"
-"1","alabama",221025,5.34444139924163
-"2","alaska",144349,5.15941377958504
-"3","arizona",1243255,6.09456021451037
-"4","arkansas",173345,5.23891131929079
-"5","california",4472479,6.65054831006545
-"6","colorado",469432,5.67157269103534
-"7","connecticut",283627,5.45274757133777
-"8","delaware",89970,4.95409772047919
-"9","florida",2243730,6.35097059475656
-"10","georgia",497912,5.69715259317842
-"11","hawaii",85676,4.93285918216461
-"12","idaho",280085,5.44728985073122
-"13","illinois",447649,5.65093761866258
-"14","indiana",305172,5.4845446839246
-"15","iowa",168416,5.22638334833718
-"16","kansas",241095,5.38218820376225
-"17","kentucky",193506,5.28669443564171
-"18","louisiana",774781,5.88917896194855
-"19","maine",60881,4.78448177731894
-"20","maryland",392037,5.5933270571672
-"21","massachusetts",360734,5.55718707749025
-"22","michigan",817592,5.91253663331308
-"23","minnesota",579602,5.76312987539725
-"24","mississippi",248179,5.39476503030547
-"25","missouri",412470,5.61539236668411
-"26","montana",156384,5.19419231734808
-"27","nebraska",87936,4.94416670670742
-"28","nevada",112635,5.05167336338357
-"29","new hampshire",116200,5.06520612805431
-"30","new jersey",661226,5.82034992208412
-"31","new mexico",266113,5.42506609097514
-"32","new york",2182895,6.33903284609974
-"33","north carolina",919420,5.96351394665724
-"34","north dakota",88586,4.94736509205445
-"35","ohio",741123,5.86989029136431
-"36","oklahoma",563840,5.75115588239593
-"37","oregon",240232,5.38063085692942
-"38","pennsylvania",1070287,6.0295002503985
-"39","rhode island",142506,5.15383315004302
-"40","south carolina",650056,5.81295077117116
-"41","south dakota",131148,5.1177616720092
-"42","tennessee",573532,5.75855765420889
-"43","texas",4047866,6.60722612724483
-"44","utah",549154,5.7396941513199
-"45","vermont",42562,4.62902202738276
-"46","virginia",968192,5.98596148982087
-"47","washington",591885,5.77223733389013
-"48","west virginia",266738,5.42608489051072
-"49","wisconsin",1012234,6.00528092076608
-"50","wyoming",112731,5.05204335950352
-"51",NA,68460,4.83543689480186
+,region,TotalCases,Half,Vote,NBA,Population,State
+1,alabama,221025,East,Trump,None,5024279,AL
+2,alaska,144349,West,Trump,None,733391,AK
+3,arizona,1243255,West,Biden,West,7151502,AZ
+4,arkansas,173345,East,Trump,None,3011524,AR
+5,california,4472479,West,Biden,West,39538223,CA
+6,colorado,469432,West,Biden,West,5773714,CO
+7,connecticut,283627,East,Biden,None,3605944,CT
+8,delaware,89970,East,Biden,None,989948,DE
+9,florida,2243730,East,Trump,East,21538187,FL
+10,georgia,497912,East,Biden,East,10711908,GA
+11,hawaii,85676,West,Biden,None,1455271,HI
+12,idaho,280085,West,Trump,None,1839106,ID
+13,illinois,447649,East,Biden,East,12812508,IL
+14,indiana,305172,East,Trump,East,6785528,IN
+15,iowa,168416,East,Trump,None,3190369,IA
+16,kansas,241095,West,Trump,None,2937880,KS
+17,kentucky,193506,East,Trump,None,4505836,KY
+18,louisiana,774781,East,Trump,West,4657757,LA
+19,maine,60881,East,Biden,None,1362359,ME
+20,maryland,392037,East,Biden,None,6177224,MD
+21,massachusetts,360734,East,Biden,East,7029917,MA
+22,michigan,817592,East,Biden,East,10077331,MI
+23,minnesota,579602,East,Biden,West,5706494,MN
+24,mississippi,248179,East,Trump,None,2961279,MS
+25,missouri,412470,East,Trump,None,6154913,MO
+26,montana,156384,West,Trump,None,1084225,MT
+27,nebraska,87936,West,Trump,None,1961504,NE
+28,nevada,112635,West,Biden,None,3104614,NV
+29,new hampshire,116200,East,Biden,None,1377529,NH
+30,new jersey,661226,East,Biden,None,9288994,NJ
+31,new mexico,266113,West,Biden,None,2117522,NM
+32,new york,2182895,East,Biden,East,20201249,NY
+33,north carolina,919420,West,Trump,East,10439388,NC
+34,north dakota,88586,West,Trump,None,779094,ND
+35,ohio,741123,East,Trump,East,11799448,OH
+36,oklahoma,563840,West,Trump,West,3959353,OK
+37,oregon,240232,West,Biden,West,4237256,OR
+38,pennsylvania,1070287,East,Biden,East,13002700,PA
+39,rhode island,142506,East,Biden,None,1097379,RI
+40,south carolina,650056,East,Trump,None,5118425,SC
+41,south dakota,131148,West,Trump,None,886667,SD
+42,tennessee,573532,East,Trump,West,6910840,TN
+43,texas,4047866,West,Trump,West,29145505,TX
+44,utah,549154,West,Trump,West,3271616,UT
+45,vermont,42562,East,Biden,None,643077,VT
+46,virginia,968192,East,Biden,None,8631393,VA
+47,washington,591885,West,Biden,East,7705281,WA
+48,west virginia,266738,West,Trump,None,1793716,WV
+49,wisconsin,1012234,East,Biden,East,5893718,WI
+50,wyoming,112731,West,Trump,None,576851,WY

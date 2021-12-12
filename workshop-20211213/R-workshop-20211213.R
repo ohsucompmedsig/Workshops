@@ -21,29 +21,87 @@
 # Please download and install R and RStudio. Instructions can be found at 
 # https://github.com/ohsucompmedsig/Workshops/blob/main/workshop-20211213/Set_up_R_and_Rstudio.pdf
 
-# Variables
-
-# Functions and Arguments
-
-# Comments
-
-# Install ggplot2 package
-
 ### Input dataset, split in groups, perform T test - Sid
 
 # load the data set into a variable called "covidData"
 
-# split data into two groups
 
-# do a t-test
+# Check out some features of your data
+
+# Simple subsetting of data
+
+
+# Check features of read.csv()
+?read.csv
+
+
+# National level data
+
+
+# Adding new columns with mathematical operations
+?log10
+
+
+# Add new columns with string manipulation
+
+
+# T Tests
+# Check regional difference
+
+
+# Check voting difference
+
+
+# Check NBA difference 
+
+
+# Example Join
+
 
 ### Plot data with ggplot2 and save a graph - Eric
 
-# plot a bar plot with ggplot2
-
-# plot a line graph with ggplot2
-
-# save a plot
+# Install ggplot2 package
 
 
+## plot a bar plot with ggplot2
 
+
+# add a main title and axis titles
+
+
+# but Eric, I don't like the aesthetic. So let's add some pzazz
+
+
+# that's cool, but it won't fly in an academic paper...
+
+
+## plot a line graph with ggplot2
+# Let's plot the cumulative number of cases in Multnomah County, OR since the pandemic began
+# first isolate the cases that occured in Multnomah county
+multnomahCounty <- covidData[covidData$County.Name == "Multnomah County ", ]
+
+# quickly turning the date column into an actual date...don't worry about this yet
+multnomahCounty$Date <- as.POSIXct(multnomahCounty$Date)
+
+# time to plot
+
+
+# how many cases have there been since we started school?
+
+
+## save a plot
+# I made a pretty picture, how do I share it on social media? (or put it in a paper. you do you.)
+?ggsave
+
+
+# your turn! can you save the bar plot we made?
+
+### BONUS!!!
+#install.packages("remotes")
+
+# anyone like bernie?
+remotes::install_github("R-CoderDotCom/ggbernie")
+
+
+# who likes cats?
+remotes::install_github("Gibbsdavidl/CatterPlots")
