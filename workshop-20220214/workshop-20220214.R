@@ -21,12 +21,18 @@
 # load data into a variable in R
 diabetic_data <- read.csv("~/Downloads/dataset_diabetes/diabetic_data.csv")
 
+# To make a two by two table, we need to have two variables that are 
+# "binarized"- they are yes/no or true/false for given categories. Like
+# "did they receive a certain medication?" or "were they readmitted to the
+# hospital?"
+# We'll do that here and prepare our data for some statistics in the next part.
+
 # add a column to the data indicating if the patient has been readmitted or not
-diabetic_data$any_readmission <- diabetic_data$readmitted != "NO"
+diabetic_data$any_readmission <- tolower(diabetic_data$readmitted) != "no"
 
 # add a column to the data indicating if the patient has taken any amount of 
 # the drug metformin
-diabetic_data$any_metformin <- diabetic_data$metformin != "No"
+diabetic_data$any_metformin <- tolower(diabetic_data$metformin) != "no"
 
 # where are the true positives, true negatives, false positives, and false
 # negatives?
@@ -78,13 +84,41 @@ metformin_rrr
 
 # What does this number mean?
 
-# TODO: add confidence interval calculation
+# add a function to calculate the confidence interval
+calc_ci <- function(tbt){
+  # get a, b, c, and d
+  a <- tbt[1, 1]
+  b <- tbt[1, 2]
+  c <- tbt[2, 1]
+  d <- tbt[2, 2]
+  
+  # use prior function to get the relative risk ratio
+  rrr <- calc_rrr(tbt)
+  
+  # get zscore for 95% ci
+  z <- qnorm(0.05)
+  
+  # calculate the relative values from 2x2 table
+  rv <- sqrt((b/a)/(a+b) + (d/c)/(c+d))
+  
+  # calculate upper and lower bounds of ci
+  upr <- exp(log(rrr) + z*rv)
+  lwr <- exp(log(rrr) - z*rv)
+  
+  # return the ci
+  return(c(upr, lwr))
+}
+metformin_ci <- calc_ci(two_by_two)
+metformin_ci
+
+# What does it mean when the confidence interval includes or excludes 1?
 
 ## Part 3 (Sid)
 # It is probably important to show our two by two table to others in our final 
 # write-up, poster, or publication. So let's make a graphic that shows what our 
 # table looks like.
 
+# Or maybe a forest plot (would require we make more binarized variables)
 
 ## Bonus!
 
