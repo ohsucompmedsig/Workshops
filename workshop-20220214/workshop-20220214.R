@@ -16,7 +16,7 @@
 
 # Quick shout-out to Ali Lokhandwala for helping us plan the session!
 
-## Part 1 (Spencer)
+## Part 1 (Eric)
 
 # load data into a variable in R
 diabetic_data <- read.csv("~/Downloads/dataset_diabetes/diabetic_data.csv")
@@ -40,8 +40,7 @@ diabetic_data$any_metformin <- tolower(diabetic_data$metformin) != "no"
 # where are the true positives, true negatives, false positives, and false
 # negatives?
 
-## Part 2 (Eric)
-# For part 2, we are going to calculate the 2x2 table with a built-in R 
+# Now, we are going to calculate the 2x2 table with a built-in R 
 # function. The we will write our own function to calculate the risk ratio
 # of a patient being readmitted if they were given any amount of metformin.
 
@@ -116,7 +115,7 @@ metformin_ci
 
 # What does it mean when the confidence interval includes or excludes 1?
 
-## Part 3 (Sid)
+## Part 2 (Sid)
 # It is probably important to show our two by two table to others in our final 
 # write-up, poster, or publication. So let's make a graphic that shows what our 
 # table looks like.
