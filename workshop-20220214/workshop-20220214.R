@@ -21,6 +21,9 @@
 # load data into a variable in R
 diabetic_data <- read.csv("~/Downloads/dataset_diabetes/diabetic_data.csv")
 
+# Let's get a quick look at the top of the data
+head(diabetic_data)
+
 # To make a two by two table, we need to have two variables that are 
 # "binarized"- they are yes/no or true/false for given categories. Like
 # "did they receive a certain medication?" or "were they readmitted to the
