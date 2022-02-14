@@ -14,20 +14,16 @@
 # Let's take a look at the relationship between given medications and
 # the rate of readmission to the hospital.
 
-# Pro-tip: if you ever have a question about a function, just type 
-# "?function name" into the R console. This will bring up the manual that
-# explains how the function works. 
-
 # Quick shout-out to Ali Lokhandwala for helping us plan the session!
 
 ## Part 1 (Eric)
 
-# load data into a variable in R - where did you save the data?
-# diabetic_data <- read.csv("./dataset_diabetes/diabetic_data.csv") 
-# diabetic_data <- read.csv("~/Downloads/dataset_diabetes/diabetic_data.csv") 
+# load data into a variable in R
+# diabetic_data <- read.csv("./dataset_diabetes/diabetic_data.csv")
+diabetic_data <- read.csv("~/Downloads/dataset_diabetes/diabetic_data.csv")
 
 # Let's get a quick look at the top of the data
-View(head(diabetic_data))
+head(diabetic_data)
 
 # To make a two by two table, we need to have two variables that are 
 # "binarized"- they are yes/no or true/false for given categories. Like
@@ -36,11 +32,11 @@ View(head(diabetic_data))
 # We'll do that here and prepare our data for some statistics in the next part.
 
 # add a column to the data indicating if the patient has been readmitted or not
-diabetic_data$any_readmission <- 
+diabetic_data$any_readmission <- tolower(diabetic_data$readmitted) != "no"
 
 # add a column to the data indicating if the patient has taken any amount of 
 # the drug metformin
-diabetic_data$any_metformin <- 
+diabetic_data$any_metformin <- tolower(diabetic_data$metformin) != "no"
 
 # where are the true positives, true negatives, false positives, and false
 # negatives?
@@ -55,7 +51,10 @@ diabetic_data$any_metformin <-
 # should be displayed TRUE, and then FALSE)
 
 # make a 2x2 table!
-two_by_two <- 
+two_by_two <- table(
+  "Any Metformin" = factor(diabetic_data$any_metformin, levels = c("TRUE", "FALSE"))
+  , "Hospital Readmission" = factor(diabetic_data$any_readmission, levels = c("TRUE", "FALSE"))
+)
 
 # What does our 2x2 table look like?
 two_by_two
@@ -73,8 +72,14 @@ two_by_two
 # Now, let's write a function that takes the 2x2 table as an argument, and 
 # spits out ("returns") the relative risk ratio.
 
-# write a function called calc_rrr()
-calc_rrr <- 
+calc_rrr <- function(tbt){
+  a <- tbt[1, 1]
+  b <- tbt[1, 2]
+  c <- tbt[2, 1]
+  d <- tbt[2, 2]
+  ratio <- (a/(a+b))/(c/(c+d))
+  return(ratio)
+}
 
 # calculate the relative risk ratio from our 2x2 table
 metformin_rrr <- calc_rrr(two_by_two)
@@ -85,15 +90,15 @@ metformin_rrr
 # add a function to calculate the confidence interval
 calc_ci <- function(tbt){
   # get a, b, c, and d
-  a <- 
-  b <- 
-  c <- 
-  d <- 
+  a <- tbt[1, 1]
+  b <- tbt[1, 2]
+  c <- tbt[2, 1]
+  d <- tbt[2, 2]
   
   # use prior function to get the relative risk ratio
-  rrr <- 
+  rrr <- calc_rrr(tbt)
   
-  # get zscore for 95% ci - what does the qnorm function do?
+  # get zscore for 95% ci
   z <- qnorm(0.05)
   
   # calculate the relative values from 2x2 table
@@ -119,8 +124,8 @@ metformin_ci
 # There are many ways to make a nice looking table, probably some easier than
 # this. Here, we will use ggplot2 to make 
 
-# Install/Load ggplot2 library if you haven't already
-# install.package("ggplot2")
+# Install/Load ggplot2 library
+#install.package("ggplot2")
 library(ggplot2)
 
 # Write your own function to make 2x2
@@ -202,50 +207,35 @@ sample_tbt <- my_tbt_plot(tbt = two_by_two,
                           text_size = 6,
                           box_cols = c("red", "blue", "blue", "red"))
 
-# Save the plot - what should we put in the ggsave() function?
-ggsave()
+# Save plot
+# ggsave("sample_tbt.png", sample_tbt, device = "png", dpi = 300)
 
-# A lot of studies like to report their statistics in a "forest plot" which 
-# shows all of the measures and their confidence intervals in one place. 
-# Let's make one of those. They are a bit more complicated, but very repetitive.
-# Once you make one, you can reuse code whenever you make another.
+# Or maybe a forest plot (would require we make more binarized variables)
 
 # Install/load library patchwork for layering plots
 library(patchwork)
 
-# first step --> make a data frame with the names of the variables we want in
-# the plot
 df <- data.frame(
   drug = names(diabetic_data[25:42]),
   stringsAsFactors = FALSE
 )
 
-# We need to binarize the variables of interest. There are a bunch, so we'll use 
-# a for loop to go through them all
 for (i in 1:nrow(df)) {
-  # make a temporary dataset
   diabetic_data_temp <- diabetic_data
-  
-  # make columns for readmittance and whichever drug we're interested in
   diabetic_data_temp$readm <- tolower(diabetic_data_temp$readmitted) != "no"
   diabetic_data_temp$drug <- tolower(diabetic_data_temp[, names(diabetic_data_temp[25:42])[i]]) != "no"
-  
-  # make a two by two table
   tbt <- table(
     "Any Drug" = factor(diabetic_data_temp$drug, levels = c("TRUE", "FALSE"))
     , "Hospital Readmission" = factor(diabetic_data_temp$readm, levels = c("TRUE", "FALSE"))
   )
-  
-  # let's get the TP, TN, FP, FN, RRR, and CIs from the 2x2 table
-  df[i, "drug_tp"] <- # this is "a" in the 2x2
-  df[i, "drug_fn"] <- # this is "c" in the 2x2
-  df[i, "drug_fp"] <- # this is "b" in the 2x2
-  df[i, "drug_tn"] <- # this is "d" in the 2x2
-  df[i, "drug_rrr"] <-  # reusing functions!
-  df[i, "drug_ci_low"] <-  # reusing functions!
-  df[i, "drug_ci_high"] <-  # reusing functions!
+  df[i, "drug_tp"] <- tbt[1,1]
+  df[i, "drug_fn"] <- tbt[1,2]
+  df[i, "drug_fp"] <- tbt[2,1]
+  df[i, "drug_tn"] <- tbt[2,2]
+  df[i, "drug_rrr"] <- calc_rrr(tbt)
+  df[i, "drug_ci_low"] <- calc_ci(tbt)[1]
+  df[i, "drug_ci_high"] <- calc_ci(tbt)[2]
 }
-
 df <- df[complete.cases(df),]
 
 a <- ggplot() +
@@ -333,46 +323,49 @@ b <- ggplot() +
     axis.ticks.y = element_blank()
   )
 
-# We'll use the "tiff()" function to save the forest plot to a high resolution
-# picture
-
-tiff("table.tiff", height = 6, width = 10, units = 'in', res = 300)
+# tiff("table.tiff", height = 6, width = 10, units = 'in', res = 300)
 a + inset_element(b, left = 0.59, bottom = 0.04, right = 0.815, top = 0.85)
-dev.off()
+# dev.off()
 
 
 ## Bonus!
 
 # Add a TRUE/FALSE column based on "A1Cresult" for whether the patient's A1C 
 # was above 8.
-diabetic_data$A1C_lvl <- 
+diabetic_data$A1C_lvl <- diabetic_data$A1Cresult == ">8"
 
 # Build a 2x2 table showing whether a test based on A1C >300 predicts 
 # readmission to the hospital.
 a1c_two_by_two <- two_by_two <- table(
-  "A1C > 8" = 
-  , "Hospital Readmission" = 
+  "A1C > 8" = factor(diabetic_data$A1C_lvl, levels = c("TRUE", "FALSE"))
+  , "Hospital Readmission" = factor(diabetic_data$any_readmission, levels = c("TRUE", "FALSE"))
 )
 a1c_two_by_two
 
 # Write a function to calculate the sensitivity of this test.
 calc_sensitivity <- function(tbt) {
-  # complete me!
+  a <- tbt[1, 1]
+  c <- tbt[2, 1]
+  sn <- a/(a+c)
+  return(sn)
 }
 calc_sensitivity(a1c_two_by_two)
 
 # Write a function to calculate the specificity of this test.
 calc_specificity <- function(tbt){
-  # complete me!
+  b <- tbt[1, 2]
+  d <- tbt[2, 2]
+  sp <- d/(b+d)
+  return(sp)
 }
 calc_specificity(a1c_two_by_two)
 
 # What is the relative risk ratio of patients with A1C >8 to patients with
 # lower A1C?
-a1c_rrr <- # which custom function can I reuse?
+a1c_rrr <- calc_rrr(a1c_two_by_two)
 a1c_rrr
 
 ## Double bonus!
 # What is the prevalence of patients with A1C >8?
-prevalence <- # several ways that we can calculate this...
+prevalence <- sum(diabetic_data$A1C_lvl)/nrow(diabetic_data) * 100
 prevalence
